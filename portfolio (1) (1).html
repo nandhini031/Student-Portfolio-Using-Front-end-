@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nandini V — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #e8edf5;
+      --cream: #112240;
+      --rust: #64b5f6;
+      --gold: #90caf9;
+      --sage: #80cbc4;
+      --light: #0a192f;
+      --border: #1e3a5f;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--light);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,25,47,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--rust);
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--rust); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 3rem 6rem 5rem;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--rust);
+    }
+
+    h1.name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    h1.name span { color: var(--rust); font-style: italic; }
+
+    .hero-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bio {
+      max-width: 420px;
+      font-size: 0.97rem;
+      color: #8aaac8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--rust);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #a8431f; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--rust); color: var(--rust); }
+
+    /* hero right — decorative panel */
+    .hero-right {
+      background: var(--cream);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: 'NV';
+      font-family: 'Playfair Display', serif;
+      font-size: 18rem;
+      font-weight: 900;
+      color: rgba(192,82,42,0.06);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .stat-card {
+      background: #112240;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .stat-card:nth-child(2) { animation-delay: 0.1s; }
+    .stat-card:nth-child(3) { animation-delay: 0.2s; }
+    .stat-card:nth-child(4) { animation-delay: 0.3s; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--rust);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7a9cc0;
+      margin-top: 0.4rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5rem; }
+    section:nth-child(even) { background: var(--cream); }
+
+    .section-header {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--rust);
+      min-width: 2rem;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-grid { display: grid; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      transition: background 0.2s;
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-item:hover { background: rgba(100,181,246,0.05); }
+
+    .exp-meta { padding-right: 2rem; }
+    .exp-company {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rust);
+      font-weight: 500;
+    }
+    .exp-period {
+      font-size: 0.8rem;
+      color: #5a8ab0;
+      margin-top: 0.25rem;
+    }
+    .exp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .exp-desc {
+      font-size: 0.93rem;
+      color: #8aaac8;
+      line-height: 1.7;
+    }
+
+    /* ── SKILLS ── */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      border: 1px solid var(--border);
+      padding: 2rem;
+      background: #112240;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-group:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    .skill-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .skill-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-size: 0.73rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .tag.accent { background: var(--rust); color: #fff; border-color: var(--rust); }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: #112240;
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--rust);
+    }
+
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(100,181,246,0.1);
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      line-height: 1;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 0.9rem;
+      color: #8aaac8;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stack-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      font-weight: 500;
+      color: var(--sage);
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+
+    .cert-card {
+      border: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #112240;
+    }
+    .cert-card:hover { border-color: var(--rust); }
+
+    .cert-icon {
+      width: 36px; height: 36px;
+      background: var(--rust);
+      display: grid; place-items: center;
+      color: #fff;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .cert-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 0.2rem;
+    }
+    .cert-org {
+      font-size: 0.75rem;
+      color: #5a8ab0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── EDUCATION ── */
+    #education {
+      background: #050e1a;
+      color: var(--ink);
+    }
+    #education .section-title { color: var(--ink); }
+    #education .section-line { background: rgba(100,181,246,0.2); }
+    #education .section-num { color: var(--gold); }
+
+    .edu-card {
+      border: 1px solid rgba(100,181,246,0.15);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .edu-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--rust);
+      line-height: 1;
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .edu-school {
+      font-size: 0.95rem;
+      color: rgba(100,181,246,0.6);
+    }
+    .edu-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold);
+      text-align: right;
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; padding: 5rem; }
+    .contact-email {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--rust);
+      text-decoration: none;
+      border-bottom: 2px solid var(--rust);
+      padding-bottom: 0.2rem;
+      transition: opacity 0.2s;
+      display: inline-block;
+      margin: 1.5rem 0 2rem;
+    }
+    .contact-email:hover { opacity: 0.7; }
+    .contact-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem; }
+    .contact-link {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #5a8ab0;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--rust); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050e1a;
+      color: rgba(100,181,246,0.4);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left { animation: fadeUp 0.9s ease both; }
+    h1.name { animation: fadeUp 0.9s 0.15s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 5rem 2rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .skills-layout, .cert-list, .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-card { grid-template-columns: 1fr; }
+      .edu-badge { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Nandini V.</div>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Engineering Student · Bangalore, India</div>
+      <h1 class="name">Nandini<br/><span>V.</span></h1>
+      <p class="hero-role">Data Analyst · Full Stack Developer · IoT Engineer</p>
+      <p class="hero-bio">Motivated CSE (IoT & CSBT) student with experience in data analysis, full-stack development, and embedded systems. Passionate about bridging technology with real-world impact.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Datasets Cleaned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Internships</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Donor Records Managed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-grid">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-company">Besant Technologies</div>
+          <div class="exp-period">Kalyan Nagar, Bangalore</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Data Analyst Intern</div>
+          <p class="exp-desc">Cleaned and processed 50+ datasets to improve data accuracy. Built interactive dashboards using Power BI and Excel, analyzed trends to generate data-driven insights, and created stakeholder-ready reports that significantly improved data interpretation efficiency.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-company">Pie Info Tech</div>
+          <div class="exp-period">Full Stack</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Java Full Stack Intern</div>
+          <p class="exp-desc">Built basic web applications using Java, HTML, CSS, and backend tools. Handled database operations with SQL, contributed to debugging and testing, and gained practical experience in the end-to-end development lifecycle.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-company">Salesforce</div>
+          <div class="exp-period">Developer Intern</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Salesforce Developer Intern</div>
+          <p class="exp-desc">Food Donation Management Project — Managed data for 100+ donors and volunteers, supported a platform connecting donors with distribution teams, and improved tracking of food collection and delivery to help reduce food wastage.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-layout">
+
+      <div class="skill-group">
+        <div class="skill-icon">💻</div>
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-tags">
+          <span class="tag accent">Python</span>
+          <span class="tag accent">Java</span>
+          <span class="tag">C / C++</span>
+          <span class="tag">OOP</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-group-title">Databases & Query</div>
+        <div class="skill-tags">
+          <span class="tag accent">SQL</span>
+          <span class="tag">DBMS</span>
+          <span class="tag">Data Modeling</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">📊</div>
+        <div class="skill-group-title">Tools & Analytics</div>
+        <div class="skill-tags">
+          <span class="tag accent">Power BI</span>
+          <span class="tag">Microsoft Excel</span>
+          <span class="tag">Dashboards</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-group-title">AI & Data</div>
+        <div class="skill-tags">
+          <span class="tag">Generative AI</span>
+          <span class="tag">LLMs</span>
+          <span class="tag">NLP</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Data Cleaning</span>
+          <span class="tag">Data Visualization</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-group-title">Web Development</div>
+        <div class="skill-tags">
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">Java Backend</span>
+          <span class="tag">Salesforce</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-group-title">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="tag">Leadership</span>
+          <span class="tag">Teamwork</span>
+          <span class="tag">Communication</span>
+          <span class="tag">Planning</span>
+          <span class="tag">Time Management</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-title">Smart Navigation for the Visually Impaired</div>
+        <p class="project-desc">Uses an Arduino microcontroller and ultrasonic sensors to detect obstacles in real time. When the system senses an object, it automatically reroutes — demonstrating autonomous navigation applicable to smart vehicles and assistive robotics.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Arduino IDE</span>
+          <span class="stack-tag">C / C++</span>
+          <span class="stack-tag">Ultrasonic Sensors</span>
+          <span class="stack-tag">IoT</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title">Password-Based Smart Door Lock System</div>
+        <p class="project-desc">A digital access control system using an Arduino and keypad module for enhanced security. Users authenticate via password — correct entry opens the lock, otherwise access is denied. Demonstrates electronic authentication for home and office security.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Arduino IDE</span>
+          <span class="stack-tag">Embedded C</span>
+          <span class="stack-tag">Tinkercad</span>
+          <span class="stack-tag">IoT</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-list">
+      <div class="cert-card">
+        <div class="cert-icon">✦</div>
+        <div>
+          <div class="cert-name">SQL Case Study — SQL Workshop</div>
+          <div class="cert-org">Infosys</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">✦</div>
+        <div>
+          <div class="cert-name">Introduction to Generative AI Studio</div>
+          <div class="cert-org">Simpli Learn</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">✦</div>
+        <div>
+          <div class="cert-name">Artificial Intelligence Fundamentals</div>
+          <div class="cert-org">IBM</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-badge">BE</div>
+      <div>
+        <div class="edu-degree">Computer Science &amp; Engineering</div>
+        <div class="edu-school">IoT &amp; Cognitive Systems (CSBT) · East Point College of Engineering and Technology, Bangalore</div>
+      </div>
+      <div class="edu-year">2022 — 2026</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header" style="justify-content:center; margin-bottom:1.5rem">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Let's Connect</h2>
+    </div>
+    <p style="color:#8a7f72; font-size:0.95rem; margin-bottom:0.5rem;">Open to opportunities, collaborations, and conversations.</p>
+    <a class="contact-email" href="mailto:nandunand23@gmail.com">nandunand23@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/nandini-v-913153281" class="contact-link" target="_blank">LinkedIn ↗</a>
+      <span style="color:var(--border)">|</span>
+      <a href="tel:+918884160114" class="contact-link">+91 88841 60114</a>
+    </div>
+  </section>
+
+  <footer>© 2025 Nandini V · Bangalore, India · Built with HTML &amp; CSS</footer>
+
+</body>
+</html>
